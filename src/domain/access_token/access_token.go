@@ -1,6 +1,8 @@
 package access_token
 
-import "time"
+import (
+	"time"
+)
 
 const (
 	expirationTime = 24
@@ -20,7 +22,5 @@ func GetNewAccessToken() AccessToken {
 }
 
 func (at AccessToken) IsExpired() bool {
-	now := time.Now().UTC()
-	expirationTime := time.Unix(at.Expires, 0)
-	return now.After(expirationTime)
+	return time.Unix(at.Expires, 0).Before(time.Now().UTC())
 }
